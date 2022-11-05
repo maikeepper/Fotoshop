@@ -29,15 +29,6 @@
                     </fieldset>
                 </g:uploadForm>
 
-                %{--                <form action="/upload/multiple">--}%
-%{--                    <div class="file-drop-area">--}%
-%{--                        <span class="choose-file-button">Choose files</span>--}%
-%{--                        <span class="file-message">or drag and drop files here</span>--}%
-%{--                        <input class="file-input" type="file" name="files" multiple>--}%
-%{--                    </div>--}%
-%{--                    <g:submitButton name="Dateien hochladen"/>--}%
-%{--                </form>--}%
-
             </div>
         </div>
     </div>

@@ -2,14 +2,15 @@ package ea.fotos
 
 class Foto {
 
-    // id <=> eindeutige Nummer, auch zur Benutzung in einem Auslage-Katalog
-    String orgDateiname    // Dateiname des Original-Fotos auf der Festplatte
-    String tnName          // Dateiname des Thumbnails
+    Long id                   // eindeutige Nummer, auch zur Benutzung in einem Auslage-Katalog
+    String orgFilename        // Dateiname des Original-Fotos auf der Festplatte
+    String thumbnail          // Pfad zum Thumbnail für img-Tags
 
     // Preis
     // Tags
+    // Image hash -> unique?
 
     static constraints = {
-        orgDateiname       nullable: false, blank: false
+        orgFilename       nullable: false, blank: false
     }
 }

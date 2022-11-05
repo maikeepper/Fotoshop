@@ -17,4 +17,9 @@ class FotosController {
 //    @Secured( [ 'ROLE_ADMIN', 'ROLE_STAFF' ] )
 //    def tag() {}
 
+    @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
+    def saveMultiple() {
+        flash.message = 'Fotos gespeichert!'
+        render view: '/upload/multiple', model: [ fotos: [] ]
+    }
 }

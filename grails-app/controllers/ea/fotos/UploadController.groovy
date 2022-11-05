@@ -5,12 +5,11 @@ import grails.validation.Validateable
 import groovy.transform.ToString
 import org.springframework.web.multipart.MultipartFile
 
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
-
 @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
 class UploadController {
+
+    UploadService uploadService
+
 
     def multiple( FotoUploadCommand cmd ) {
 
@@ -20,16 +19,10 @@ class UploadController {
             return
         }
 
-        // TODO image-hashcode ausrechnen und als unique constraint prop in Domain class Foto aufnehmen?
+        final List<Foto> uploadedFotos = uploadService.uploadFotos( cmd )
 
-        for( MultipartFile file : cmd.files ) {
-            final Path filePath = Paths.get( 'uploads', file.originalFilename )
-            try ( OutputStream os = Files.newOutputStream( filePath ) ) {
-                os.write( file.bytes )
-            }
-        }
-
-        render view: 'multiple', model: [ filenames: cmd.files*.originalFilename.toString() ]
+        log.info( "Created ${ uploadedFotos?.size() } Fotos from ${ cmd.files?.size() } uploaded files." )
+        render view: 'multiple', model: [ fotos: uploadedFotos ]
     }
 }
 
