@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
+    <asset:javascript src="application.js"/>
+
     <asset:stylesheet src="bootstrap.css"/>
     <asset:stylesheet src="application.css"/>
 
@@ -69,8 +71,6 @@
 <div id="spinner" class="spinner" style="display:none;">
     <g:message code="spinner.alt" default="Loading&hellip;"/>
 </div>
-
-<asset:javascript src="application.js"/>
 
 </body>
 </html>
