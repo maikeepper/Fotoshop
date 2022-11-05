@@ -32,11 +32,6 @@
 		font-weight: bold;
 	}
 
-	#login .inner .login_message {
-		padding: 6px 25px 20px 25px;
-		color: #c33;
-	}
-
 	#login .inner .input-fields {
 		margin: 10px auto;
 	}
@@ -47,22 +42,22 @@
 <body>
 <div id="login">
 	<div class="inner">
-		<div class="fheader">Bitte geben Sie Ihren Code ein:</div>
+		<div class="fheader"><g:message code="login.header" default="Bitte geben Sie Ihren Code ein:"/></div>
 
 		<g:if test="${ flash.message }">
-		<div class="login_message">Es konnte leider kein entsprechender Code gefunden werden.</div>
+		<div class="flash_message error"><g:message code="login.error" default="Es konnte leider kein entsprechender Code gefunden werden."/></div>
 		</g:if>
 
 		<form action="/login/authenticate" method="POST" id="loginForm" class="cssform">
 			<input type="hidden" class="chk" name="remember-me" id="remember_me" value="on">
 
 			<p class="input-fields">
-				<input type="text" class="text_" name="username" id="username" autocapitalize="characters">
-				<input type="text" class="text_" name="password" id="password" autocapitalize="characters">
+				<input type="text" class="text" name="username" id="username" autocapitalize="characters"/>
+				<input type="text" class="text" name="password" id="password" autocapitalize="characters"/>
 			</p>
 
 			<p>
-				<input type="submit" id="submit" value="Absenden">
+				<g:submitButton name="submit" value="${message( code:'login.login', default:'Absenden' )}"/>
 			</p>
 		</form>
 	</div>
