@@ -1,10 +1,9 @@
-#NEXT STEPS
-- upload/multiple view mit thumbnails versehen, andere Felder nicht editierbar, dafür aber löschen können
-  (dann sollten auch keine Foto-Objekte daraus angelegt werden)
-
 #TODO
 - Logging (File + Console)
-- Thumbnail-Images können wahrscheinlich noch etwas kleiner und schlechter an Qualität
+- Katalog-Druck-Funktion mit den aktuellen Nummern nach dem Speichern
+- Thumbnail creation might take too long - wird gerade synchron mit jedem Bild erledigt, weil ich das Thumbnail
+  auch mehr oder weniger sofort danach im Anschluss brauche. Muss aber eventuell in einen async Kontext gezogen werden,
+  und Javascript lädt die Bilder nach und nach, bis sie fertig erstellt wurden?
 
 #MAYBE
 - image hashcode, um bereits hochgeladene Bilder wiederzuerkennen
