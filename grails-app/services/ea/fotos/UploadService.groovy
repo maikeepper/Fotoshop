@@ -17,8 +17,8 @@ import java.nio.file.Paths
 class UploadService {
 
 
-    final static String ORG_DIR_NAME = 'uploads'
-    final static String THUMBS_DIR_NAME = 'thumbnails'
+    public static final String ORIG_DIR_NAME = 'uploads'
+    public static final String THUMBS_DIR_NAME = 'thumbnails'
 
     AssetResourceLocator assetResourceLocator
 
@@ -33,30 +33,36 @@ class UploadService {
                 0.5f )
 
         final List<Foto> uploadedFotos = []
+        long tookTN = 0
         for( MultipartFile file : cmd.files ) {
-            final Path filePath = Paths.get( ORG_DIR_NAME, file.originalFilename )
+            final Path filePath = Paths.get( ORIG_DIR_NAME, file.originalFilename )
             try( OutputStream os = Files.newOutputStream( filePath ) ) {
                 // save original image file to disk
                 os.write( file.bytes )
 
                 // create thumbnail
-                final Path thumbnailPath = Paths.get( THUMBS_DIR_NAME, Rename.PREFIX_DOT_THUMBNAIL.apply( file.originalFilename, null ) )
-                final File orgFile = new File( filePath.toString() )
-                Thumbnails.of( orgFile )
-                        .size( 640, 480 )
+                final String thumbnailFilename = Rename.PREFIX_DOT_THUMBNAIL.apply( file.originalFilename, null )
+                final Path thumbnailPath = Paths.get( THUMBS_DIR_NAME, thumbnailFilename )
+                final File origFile = new File( filePath.toString() )
+                long startTN = System.currentTimeMillis()
+                Thumbnails.of( origFile )
+                        .size( 480, 320 )
+                        .outputFormat( 'jpg' )
                         .watermark( watermark )
                         .outputQuality( 0.8 )
                         .asFiles( [new File( thumbnailPath.toString() )] )
+                tookTN += System.currentTimeMillis() - startTN
 
                 log.info( "Successfully saved '${ filePath }' to disk. Will create a thumbnail at '${thumbnailPath}'")
 
                 // create Foto
                 uploadedFotos << new Foto(
-                        orgFilename: file.originalFilename,
-                        thumbnail: thumbnailPath.toString()
+                        origFilename: file.originalFilename,
+                        thumbnail: thumbnailFilename
                 )
             }
         }
+        println "Thumbnail creation took ${tookTN} ms."
 
         uploadedFotos
     }

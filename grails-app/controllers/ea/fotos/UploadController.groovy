@@ -19,7 +19,9 @@ class UploadController {
             return
         }
 
+        long tookUpl = System.currentTimeMillis()
         final List<Foto> uploadedFotos = uploadService.uploadFotos( cmd )
+        println "Foto upload took ${System.currentTimeMillis() - tookUpl} ms."
 
         log.info( "Created ${ uploadedFotos?.size() } Fotos from ${ cmd.files?.size() } uploaded files." )
         render view: 'multiple', model: [ fotos: uploadedFotos ]
