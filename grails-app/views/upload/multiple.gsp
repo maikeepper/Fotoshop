@@ -11,7 +11,6 @@
     <div class="flash_message error">${ flash.message ?: cmd?.errors }</div>
     </g:if>
 
-    <%-- TODO: padding etc., remove-Button größer, Wiederherstellen zentrieren --%>
     <div id="uploadedFiles" class="container justify-content-center">
         <div class="row">
             <div class="col-md-12">

@@ -70,11 +70,11 @@
         if( badge.hasClass( 'selected' ) ) {
             // TODO removeFromCart( fotoId );
             badge.removeClass( 'selected' );
-            badge.attr( 'title', ${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) } );
+            badge.attr( 'title', '${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }' );
         } else {
             // TODO addToCart( fotoId );
             badge.addClass( 'selected' );
-            badge.attr( 'title', ${ g.message( code: 'fotos.remove', default: 'Entfernen' ) } );
+            badge.attr( 'title', '${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }' );
         }
     });
 </script>
