@@ -11,26 +11,37 @@
     <div class="flash_message error">${ flash.message ?: cmd?.errors }</div>
     </g:if>
 
-    <%-- TODO: padding etc., remove-Button größer, Wiederherstellen zentrieren --%>
     <div id="fotosList" class="container justify-content-center">
         <div class="row">
             <div class="col-md-12">
                 <h2>FOTOS</h2>
             </div>
         </div>
-        <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
-        <%-- TODO Katalog drucken --%>
-        <g:form name="createCatalogue" controller="fotos" action="createCatalogue">
-            <g:submitButton class="btn-outline-success btn-flow" name="createCatalogueSubmit"
-                            value="${ message( code: 'fotos.printCatalogue', default: 'Katalog erstellen' ) }"/>
-        </g:form>
-        </sec:ifAnyGranted>
-        <g:form name="selectFotos" controller="fotos" action="checkout">
-            <%-- FIXME sticky-top --%>
-            <g:submitButton class="btn-success sticky-top btn-flow" name="checkoutSubmit"
-                            value="${ message( code: 'fotos.checkout', default: 'Zum Warenkorb' ) }"/>
-            <span id="cartCount" class="cartCount badge">${ selectedFotos?.size() }</span>
-        </g:form>
+        <div class="row sticky-top">
+            <div class="col-4">
+                <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
+                    <g:link controller="fotos" action="index" class="btn btn-outline-success btn-flow">
+                        ${ message( code: 'fotos.button.list', default: 'Zu allen Fotos' ) }
+                    </g:link>
+                </sec:ifAnyGranted>
+            </div>
+            <div class="col-4">
+                <g:form name="selectFotos" controller="fotos" action="checkout">
+                    <g:submitButton class="btn-success btn-flow" name="checkoutSubmit"
+                                    value="${ message( code: 'fotos.checkout', default: 'Zum Warenkorb' ) }"/>
+                    <span id="cartCount" class="cartCount badge">${ selectedFotos?.size() }</span>
+                </g:form>
+            </div>
+            <div class="col-4">
+                <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
+                    <%-- TODO Katalog drucken --%>
+                    <g:form name="createCatalogue" controller="fotos" action="createCatalogue">
+                        <g:submitButton class="btn-outline-success btn-flow" name="createCatalogueSubmit"
+                                        value="${ message( code: 'fotos.printCatalogue', default: 'Katalog erstellen' ) }"/>
+                    </g:form>
+                </sec:ifAnyGranted>
+            </div>
+        </div>
 
         <g:each in="${ fotoList }" var="foto" status="i">
         <g:if test="${ i%2 == 0 }">
@@ -40,8 +51,8 @@
                 <div class="preview-entry">
                     <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
                            class="preview manageable" alt="${ foto.thumbnail }" width="480px"/>
-                    <div class="imageNumber fotoBadge">${ foto.id }</div>
-                    <div class="buyMe"><g:message code="fotos.buyMe" default="In den Warenkorb"/></div>
+                    <div class="imageNumber fotoBadge"
+                         title="${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }">${ foto.id }</div>
                 </div>
             </div>
         <g:if test="${ i%2 != 0 }">
@@ -59,9 +70,11 @@
         if( badge.hasClass( 'selected' ) ) {
             // TODO removeFromCart( fotoId );
             badge.removeClass( 'selected' );
+            badge.attr( 'title', ${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) } );
         } else {
             // TODO addToCart( fotoId );
             badge.addClass( 'selected' );
+            badge.attr( 'title', ${ g.message( code: 'fotos.remove', default: 'Entfernen' ) } );
         }
     });
 </script>

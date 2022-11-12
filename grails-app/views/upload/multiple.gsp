@@ -19,9 +19,11 @@
             </div>
         </div>
         <g:form name="saveMultiple" controller="fotos" action="saveMultiple">
+            <div class="row sticky-top">
             <span id="fotosCount" style="display: none;">${ fotos?.size() }</span>
-            <g:submitButton class="btn-success sticky-top btn-flow" name="saveMultipleSubmit"
-                            value="${ message( code: 'fotos.save', args: [ fotos?.size() ], default: 'Fotos speichern' ) }"/>
+            <g:submitButton class="btn-success btn-flow" name="saveMultipleSubmit"
+                            value="${ message( code: 'fotos.save', args: [ fotos?.size() ], default: "${ fotos?.size() } Fotos speichern" ) }"/>
+            </div>
 
             <g:each in="${ fotos }" var="foto" status="i">
             <g:if test="${ i%2 == 0 }">
@@ -33,10 +35,12 @@
                         <input type="hidden" name="thumbnail" value="${ foto.thumbnail }"/>
                         <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
                                class="preview manageable" alt="${ foto.thumbnail }" width="480px"/>
-                        %{--<div class="number badge">${ i+1 }</div> wird nicht nummeriert - lieber Katalog-Druck-Funktion--}%
-                        <div class="remove fotoBadge">X</div>
+                        <div class="uploadHandle fotoBadge"
+                             title="${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }">X</div>
                     </div>
-                    <div class="preview-removed" style="display: none;">Wiederherstellen</div>
+                    <div class="btn btn-outline-secondary preview-removed" style="display: none;">
+                        ${ message( code: 'upload.recreate', args: [ foto.origFilename ], default: "${ foto.origFilename } wiederherstellen" ) }
+                    </div>
                 </div>
             <g:if test="${ i%2 != 0 }">
             </div>
@@ -59,7 +63,7 @@
     }
 
     const $uploadedFiles = $('#uploadedFiles');
-    $uploadedFiles.on( 'click', '.remove.badge', function( event ) {
+    $uploadedFiles.on( 'click', '.uploadHandle.fotoBadge', function( event ) {
         // hide Foto display and show placeholder
         const target = event.target;
         const previewEntry = target.closest( '.preview-entry' );
