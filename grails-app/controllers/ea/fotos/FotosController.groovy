@@ -9,7 +9,9 @@ import java.nio.file.Paths
 @Secured( 'IS_AUTHENTICATED_FULLY' )
 class FotosController {
 
-    def index() {}
+    def scaffold = Foto
+
+    //def index() {}
 
     def suche() {
         render view: 'index'
@@ -33,11 +35,12 @@ class FotosController {
         }
         flash.message = "${ fotos.size() } Fotos gespeichert!"
 
-        render view: '/upload/multiple', model: [ fotos: fotos ]
+        render view: 'index', model: [ fotoList: fotos ]
     }
 
     @Secured( 'permitAll()' )
     def preview() {
+        // TODO kann man hier eine try-again-later response senden, wenn das Thumbnail noch nicht da sein sollte?
         final String thumbnailFilename = params.id?.toString()
         final Path thumbnailPath = Paths.get( UploadService.THUMBS_DIR_NAME, thumbnailFilename )
         final byte[] thumbnailBytes = Files.readAllBytes( thumbnailPath )
