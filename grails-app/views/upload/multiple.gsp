@@ -24,11 +24,12 @@
                             value="${ message( code: 'fotos.save', args: [ fotos?.size() ], default: "${ fotos?.size() } Fotos speichern" ) }"/>
             </div>
 
+            <% int itemsPerRow = 3 %>
             <g:each in="${ fotos }" var="foto" status="i">
-            <g:if test="${ i%2 == 0 }">
+            <g:if test="${ i%itemsPerRow == 0 }">
             <div class="row">
             </g:if>
-                <div class="col col-md-6">
+                <div class="col col-${ 12.intdiv( itemsPerRow ) }">
                     <div class="preview-entry">
                         <input type="hidden" name="origFilename" value="${ foto.origFilename }"/>
                         <input type="hidden" name="thumbnail" value="${ foto.thumbnail }"/>
@@ -41,7 +42,7 @@
                         ${ message( code: 'upload.recreate', args: [ foto.origFilename ], default: "${ foto.origFilename } wiederherstellen" ) }
                     </div>
                 </div>
-            <g:if test="${ i%2 != 0 }">
+            <g:if test="${ i%itemsPerRow == itemsPerRow-1 }">
             </div>
             </g:if>
             </g:each>

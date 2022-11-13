@@ -43,19 +43,25 @@
             </div>
         </div>
 
+        <% int itemsPerRow = 2 %>
         <g:each in="${ fotoList }" var="foto" status="i">
-        <g:if test="${ i%2 == 0 }">
+        <g:if test="${ i%itemsPerRow == 0 }">
         <div class="row">
         </g:if>
-            <div class="col col-md-6">
+            <div class="col col-${ 12.intdiv( itemsPerRow ) }">
                 <div class="preview-entry">
                     <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
                            class="preview manageable" alt="${ foto.thumbnail }" width="480px"/>
                     <div class="imageNumber fotoBadge"
                          title="${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }">${ foto.id }</div>
+                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
+                    <%-- TODO confirm, ajax call für kein redirect --%>
+                    <g:link controller="fotos" action="delete" id="${ foto.id }" class="uploadHandle fotoBadge"
+                        title="${ g.message( code: 'fotos.remove', default: 'Foto löschen' ) }">X</g:link>
+                    </sec:ifAnyGranted>
                 </div>
             </div>
-        <g:if test="${ i%2 != 0 }">
+        <g:if test="${ i%itemsPerRow == itemsPerRow-1 }">
         </div>
         </g:if>
         </g:each>

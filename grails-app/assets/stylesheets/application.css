@@ -14,11 +14,22 @@
 *= require_self
 */
 
-.footer .contact {
+.footer .contact,
+.header.contact {
     text-align: center;
 }
 
 #contact {
+    margin: 5px auto;
+    padding: 0px;
+    color: #ffffff;
+}
+
+#contact a {
+    color: #feb672 !important;
+}
+
+#fcontact {
     margin: 15px auto;
     padding: 0px;
 }
@@ -87,6 +98,8 @@
 /* Fotos list */
 .preview-entry {
     text-align: center;
+    min-height: 85px;
+    margin: 10px;
 }
 
 .btn-flow {
@@ -105,8 +118,16 @@
     color: #333333;
     border: 2px solid rgba(204, 204, 204, 1);
     position: absolute;
-    top: 5px;
+    top: 15px;
     right: 50px;
+}
+
+#fotosList .imageNumber {
+    right: 130px;
+}
+
+#fotosList .uploadHandle {
+    text-decoration: none;
 }
 
 .imageNumber:hover {

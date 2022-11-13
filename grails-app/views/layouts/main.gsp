@@ -21,7 +21,16 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/#"><asset:image src="documentation.svg" alt="Fotos"/></a>
+%{--        <a class="navbar-brand" href="/#"><asset:image src="documentation.svg" alt="Fotos"/></a>--}%
+
+        <div id="contact" class="header contact" role="navigation">
+            <h2>Anmerkungen, Fragen oder Bitten</h2>
+            <p>
+                Senden Sie uns eine E-Mail an <a href="mailto:ea-st-michael@contio.eu">ea-st-michael@contio.eu</a>.
+                Den Kindergarten erreichen Sie unter <a href="tel:004965132410">+49&nbsp;651&nbsp;32410</a>.
+            </p>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,13 +65,13 @@
 <div class="footer" role="contentinfo">
     <div class="container-fluid">
         <div class="row contact">
-            <div id="contact" role="navigation">
-                <h2>Anmerkungen, Fragen oder Bitten</h2>
-                <p>
-                    Senden Sie uns eine E-Mail an <a href="mailto:ea-st-michael@contio.eu">ea-st-michael@contio.eu</a>.
-                    Den Kindergarten erreichen Sie unter <a href="tel:004965132410">+49&nbsp;651&nbsp;32410</a>.
-                </p>
-            </div>
+%{--            <div id="fcontact" role="navigation">--}%
+%{--                <h2>Anmerkungen, Fragen oder Bitten</h2>--}%
+%{--                <p>--}%
+%{--                    Senden Sie uns eine E-Mail an <a href="mailto:ea-st-michael@contio.eu">ea-st-michael@contio.eu</a>.--}%
+%{--                    Den Kindergarten erreichen Sie unter <a href="tel:004965132410">+49&nbsp;651&nbsp;32410</a>.--}%
+%{--                </p>--}%
+%{--            </div>--}%
             <g:pageProperty name="page.footer"/>
         </div>
     </div>
