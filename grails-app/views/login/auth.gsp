@@ -49,7 +49,7 @@
 		</g:if>
 
 		<form action="/login/authenticate" method="POST" id="loginForm" class="cssform">
-			<input type="hidden" class="chk" name="remember-me" id="remember_me" value="on">
+			<input type="checkbox" class="chk" name="remember-me" id="remember_me" checked style="display: none;">
 
 			<p class="input-fields">
 				<input type="text" class="text" name="username" id="username" autocapitalize="characters"/>
