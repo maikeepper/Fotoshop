@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

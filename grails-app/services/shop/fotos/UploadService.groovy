@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos
 
 import asset.pipeline.grails.AssetResourceLocator
 import grails.gorm.transactions.Transactional

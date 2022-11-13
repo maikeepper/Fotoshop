@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos.authentication
 
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString

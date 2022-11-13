@@ -1,4 +1,8 @@
-package ea.fotos
+package shop.fotos
+
+import shop.fotos.authentication.Role
+import shop.fotos.authentication.User
+import shop.fotos.authentication.UserRole
 
 class BootStrap {
 
@@ -11,7 +15,8 @@ class BootStrap {
             final Role staffRole = Role.findOrSaveWhere(authority: 'ROLE_STAFF')
             final Role userRole = Role.findOrSaveWhere(authority: 'ROLE_USER')
 
-            final User admin = User.findOrSaveWhere(username: 'OIDG', password: 'T7R')
+            final User admin = User.findOrSaveWhere(username: 'xxx', password: 'xxx')
+            //final User admin = User.findOrSaveWhere(username: 'OIDG', password: 'T7R')
             UserRole.findOrSaveWhere(user: admin, role: adminRole)
             final User kita = User.findOrSaveWhere(username: 'DFGR', password: '3GD')
             UserRole.findOrSaveWhere(user: kita, role: staffRole)

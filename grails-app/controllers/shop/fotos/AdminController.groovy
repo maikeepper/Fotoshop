@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos
 
 import grails.plugin.springsecurity.annotation.Secured
 

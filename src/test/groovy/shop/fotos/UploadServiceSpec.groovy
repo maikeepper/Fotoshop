@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos
 
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification

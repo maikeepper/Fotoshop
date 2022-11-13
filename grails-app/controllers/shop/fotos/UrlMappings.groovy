@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos
 
 class UrlMappings {
 

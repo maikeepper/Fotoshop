@@ -1,9 +1,9 @@
-package ea.fotos
+package shop.fotos
 
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class AdminControllerSpec extends Specification implements ControllerUnitTest<AdminController> {
+class FotosControllerSpec extends Specification implements ControllerUnitTest<FotosController> {
 
     def setup() {
     }

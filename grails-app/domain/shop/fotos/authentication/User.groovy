@@ -1,4 +1,4 @@
-package ea.fotos
+package shop.fotos.authentication
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
