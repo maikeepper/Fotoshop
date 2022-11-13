@@ -19,12 +19,12 @@
         </encoder>
     </appender>
 
-    <logger name="shopfotos" level="debug" additivity="true">
+    <logger name="shop.fotos" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
         <!--appender-ref ref="FILE"/-->
     </logger>
 
-    <root level="debug">
+    <root level="error">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
