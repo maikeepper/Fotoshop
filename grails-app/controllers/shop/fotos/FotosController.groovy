@@ -14,15 +14,12 @@ class FotosController {
 
     //def index() {}
 
-    def suche() {
+    def filter() {
         render view: 'index'
     }
 
     @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
     def upload() {}
-
-//    @Secured( [ 'ROLE_ADMIN', 'ROLE_STAFF' ] )
-//    def tag() {}
 
     @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
     @Transactional
