@@ -47,7 +47,7 @@
                     <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
                     <li class="item"><a href="/gutscheine/" class="nav-link">Gutscheine</a></li>
                     </sec:ifAnyGranted>
-                    <li class="item"><a href="/fotos/" class="nav-link">Suche</a></li>
+                    <li class="item"><a href="/fotos/" class="nav-link">Fotos</a></li>
                     <li class="item"><a href="/warenkorb/" class="nav-link">Warenkorb</a></li>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
                     <li class="item"><a href="/h2-console" class="nav-link">DB Console</a></li>
