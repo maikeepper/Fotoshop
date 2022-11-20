@@ -35,7 +35,7 @@
                         <input type="hidden" name="origFilename" value="${ foto.origFilename }"/>
                         <input type="hidden" name="thumbnail" value="${ foto.thumbnail }"/>
                         <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
-                               class="preview manageable" alt="${ foto.thumbnail }" width="480px"/>
+                               class="preview manageable" alt="${ foto.thumbnail }" width="${ 960.intdiv( itemsPerRow ) }px"/>
                         <div class="uploadHandle fotoBadge"
                              title="${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }">X</div>
                         <div class="tag-selection">
@@ -83,6 +83,8 @@
         // disable input fields for Foto-to-be-saved
         $( previewEntry ).find( 'input[name="origFilename"]' ).prop( 'disabled', true );
         $( previewEntry ).find( 'input[name="thumbnail"]' ).prop( 'disabled', true );
+        $( previewEntry ).find( 'input[name="tagCount"]' ).prop( 'disabled', true );
+        $( previewEntry ).find( 'input[name="tags"]' ).prop( 'disabled', true );
     });
     $uploadedFiles.on( 'click', '.preview-removed', function( event ) {
         // show Foto display again
@@ -98,6 +100,15 @@
         // enable input fields for Foto-to-be-saved again
         $( previewEntry ).find( 'input[name="origFilename"]' ).removeAttr( 'disabled' );
         $( previewEntry ).find( 'input[name="thumbnail"]' ).removeAttr( 'disabled' );
+        $( previewEntry ).find( 'input[name="tagCount"]' ).removeAttr( 'disabled' );
+        $( previewEntry ).find( 'input[name="tags"]' ).removeAttr( 'disabled' );
+    });
+
+    $('select[name="tags"]').on( 'change', function( event ) {
+        const $selectBox = $( event.target );
+        const count = $selectBox.find( 'option:selected' ).length;
+        const $tagCount = $( event.target.previousSibling.previousSibling );
+        $tagCount.val( count );
     });
 </script>
 <asset:javascript src="select2.js"/>

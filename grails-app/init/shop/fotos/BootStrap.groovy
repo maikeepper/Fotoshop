@@ -27,6 +27,17 @@ class BootStrap {
         }
 
         println "Created ${User.count} users and ${Role.count} roles."
+
+        // create default Tags
+        Tag.withNewTransaction {
+            ['Rote Gruppe', 'Gelbe Gruppe', 'Orangene Gruppe', 'Grüne Gruppe', 'Blaue Gruppe',
+             'Klein-Rote Gruppe', 'Klein-Gelbe Gruppe', 'Klein-Orangene Gruppe',
+          'Klein-Grüne Gruppe', 'Klein-Blaue Gruppe' ].each { gruppe ->
+                Tag.findOrSaveWhere(name: gruppe)
+            }
+        }
+
+        println "Created ${Tag.count} tags."
     }
     def destroy = {
     }

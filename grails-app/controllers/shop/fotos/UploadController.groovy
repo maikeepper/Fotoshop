@@ -32,6 +32,7 @@ class UploadController {
 @ToString
 class FotoUploadCommand implements Validateable {
     List<MultipartFile> files
+    List<String> tags
 
     static constraints = {
         files  validator: { val, obj ->

@@ -27,6 +27,8 @@ class UploadService {
 
         // TODO image-hashcode ausrechnen und als unique constraint prop in Domain class Foto aufnehmen?
 
+        final List<Tag> tags = cmd.tags?.collect {tag -> Tag.findOrCreateWhere( name: tag ) } ?: Collections.emptyList()
+
         final Watermark watermark = new Watermark(
                 Positions.CENTER,
                 ImageIO.read( assetResourceLocator?.findResourceForURI( 'watermark.png' )?.inputStream ),
@@ -56,10 +58,14 @@ class UploadService {
                 log.info( "Successfully saved '${ filePath }' to disk. Will create a thumbnail at '${thumbnailPath}'")
 
                 // create Foto
-                uploadedFotos << new Foto(
+                final Foto foto = new Foto(
                         origFilename: file.originalFilename,
                         thumbnail: thumbnailFilename
                 )
+                // with Tags
+                foto.tagsToAdd.addAll( tags )
+
+                uploadedFotos << foto
             }
         }
         println "Thumbnail creation took ${tookTN} ms."
