@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Uploaded Files</title>
+    <asset:stylesheet src="select2.css"/>
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
     <div id="uploadedFiles" class="container justify-content-center">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <h2>UPLOADED FILES</h2>
             </div>
         </div>
@@ -37,6 +38,11 @@
                                class="preview manageable" alt="${ foto.thumbnail }" width="480px"/>
                         <div class="uploadHandle fotoBadge"
                              title="${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }">X</div>
+                        <div class="tag-selection">
+                            <input type="hidden" name="tagCount" value="${ ( foto.tags ?: foto.tagsToAdd ).size() }"/>
+                            <g:select class="js-select2" name="tags" from="${ shop.fotos.Tag.all }" optionKey="name"
+                                      value="${ foto.tags ?: foto.tagsToAdd }" multiple="true"/>
+                        </div>
                     </div>
                     <div class="btn btn-outline-secondary preview-removed" style="display: none;">
                         ${ message( code: 'upload.recreate', args: [ foto.origFilename ], default: "${ foto.origFilename } wiederherstellen" ) }
@@ -94,5 +100,6 @@
         $( previewEntry ).find( 'input[name="thumbnail"]' ).removeAttr( 'disabled' );
     });
 </script>
+<asset:javascript src="select2.js"/>
 </body>
 </html>

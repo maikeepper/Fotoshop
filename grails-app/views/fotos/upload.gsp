@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Upload</title>
+    <asset:stylesheet src="select2.css"/>
 </head>
 <body>
 
@@ -14,7 +15,7 @@
     <div class="container d-flex justify-content-center mt-100">
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
 
                 <h2>FILE UPLOAD</h2>
 
@@ -23,6 +24,9 @@
                         <span class="choose-file-button"><g:message code="upload.chooseFiles.label" default="Choose files"/></span>
                         <span class="file-message"><g:message code="upload.dragDropFilesHere.label" default="or drag and drop files here"/></span>
                         <input class="file-input" type="file" name="files" multiple/>
+                    </div>
+                    <div class="tag-selection">
+                        <g:select class="js-select2" name="tags" from="${ shop.fotos.Tag.all }" optionKey="name" value="${ cmd?.tags }" multiple="true" />
                     </div>
                     <fieldset class="buttons-light">
                         <input class="upload-button" type="submit" value="${message(code: 'upload.submit.label', default: 'Upload')}" disabled/>
@@ -51,5 +55,6 @@
       $('.upload-button').attr( 'disabled', false );
     });
 </script>
+<asset:javascript src="select2.js"/>
 </body>
 </html>
