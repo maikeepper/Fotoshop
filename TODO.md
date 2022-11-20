@@ -1,5 +1,7 @@
 #TODO
 - User (=> Codes) Management (inkl. Rollen, fehlt leider in den automatisch erzeugten Views)
+    --> user/index + Spalte zum Ändern der Rollen für Admins
+    --> neuer User angelegt von STAFF: automatisch Elternrolle vergeben
 - Foto delete: method not allowed
 
 - Tags bearbeiten

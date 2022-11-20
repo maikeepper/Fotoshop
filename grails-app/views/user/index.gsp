@@ -19,9 +19,12 @@
             <section class="row">
                 <div id="list-user" class="col-12 content scaffold-list" role="main">
                     <h1><g:message code="default.list.label" args="['Code']" /></h1>
-                    <g:if test="${flash.message}">
-                        <div class="message" role="status">${flash.message}</div>
-                    </g:if>
+                    <div id="flashMessage" class="message" role="status" ${ flash.message ? '' : 'style=display:none;' }>
+                        ${flash.message}
+                    </div>
+                    <div id="flashError" class="errors" role="status" ${ flash.error ? '' : 'style=display:none;' }>
+                        ${flash.error}
+                    </div>
 
                     <table>
                         <thead>
@@ -35,20 +38,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <g:each in="$userList" var="user" status="i">
+                        <g:each in="${ userList }" var="user" status="i">
                             <tr class="${i%2==0 ? 'even' : 'odd'}">
-                                <td><f:display bean="${user}" property="username"/></td>
+                                <td><f:display bean="${ user }" property="username"/></td>
                                 <td>
-                                    %{--<input type="hidden" name="_enabled"/>--}%
-                                    <input type="checkbox" name="enabled" checked="checked" value="true"
-                                           data-id="${user.id}" id="enabled${user.id}"/>
+                                    <input type="checkbox" name="enabled" ${ user.enabled ? 'checked="checked"' : '' }
+                                           value="${ user.enabled }" data-id="${ user.id }" id="enabled${ user.id }"/>
                                 </td>
                             </tr>
                         </g:each>
                         </tbody>
                     </table>
-
-                    <f:table collection="${userList}" except="['id','password','passwordExpired','accountLocked','accountExpired']"/>
 
                     <g:if test="${userCount > params.int('max')}">
                     <div class="pagination">
@@ -62,15 +62,32 @@
     <script>
         $('input[name="enabled"]').on( 'change', function( event ) {
             const elem = event.target;
-            const userId = elem.data( 'id' );
-            console.log( 'UserId ' + userId.toString() + ' was ' + $( elem ).val() );
-            // $.ajax({
-            //    url: '/user/update/' + userId,
-            //    method: 'POST',
-            //    data: {
-            //        'enabled': $( elem ).val()
-            //    }
-            // });
+            const userId = $( elem ).data( 'id' );
+            const userEnabled = $( elem ).is( ':checked' );
+            $.ajax({
+                url: '/user/update/' + userId + '?sessionId=${ sessionId }',
+                method: 'PUT',
+                data: {
+                    'enabled': userEnabled
+                },
+                success: function( data, textStatus, jqXHR ) {
+                    if( jqXHR.status < 300 ) {
+                        const enabledText = '<g:message code="message.user.enabled" default="Code enabled"/>';
+                        const disabledText = '<g:message code="message.user.disabled" default="Code disabled"/>';
+                        $('#flashMessage').text((userEnabled ? enabledText : disabledText));
+                        $('#flashMessage').show();
+                    } else {
+                        $('#flashError').text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
+                        $('#flashError').show();
+                    }
+                },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    if( jqXHR ) {
+                        $('#flashError').text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
+                        $('#flashError').show();
+                    }
+                }
+            });
         });
     </script>
     </body>
