@@ -1,0 +1,1 @@
+<g:checkBox name="enabled" value="$value" data-id="enabled${bean.id}" id="enabled${bean.id}"/>

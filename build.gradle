@@ -60,6 +60,7 @@ dependencies {
 
     implementation 'org.grails.plugins:spring-security-core:5.1.0'
     implementation 'net.coobird:thumbnailator:0.4.18'
+    implementation 'org.grails.plugins:fields:3.0.0.RC1'
 
     profile "org.grails.profiles:web"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"

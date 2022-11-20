@@ -36,6 +36,12 @@ class UserPasswordEncoderListener {
 
     private String encodePassword(String password) {
         //springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+        if( password?.indexOf( '{' ) == 0 ) {
+            int endIndex = password?.indexOf( '}' )
+            if( endIndex > 0 && endIndex < password.length() ) {
+                return "{noop}${password.substring(endIndex + 1)}"
+            }
+        }
         "{noop}$password"
     }
 }
