@@ -40,7 +40,7 @@
                              title="${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }">X</div>
                         <div class="tag-selection">
                             <input type="hidden" name="tagCount" value="${ ( foto.tags ?: foto.tagsToAdd ).size() }"/>
-                            <g:select class="js-select2" name="tags" from="${ shop.fotos.Tag.all }" optionKey="name"
+                            <g:select class="js-select2" name="tags" from="${ ( shop.fotos.Tag.all + foto.tagsToAdd ) as Set }" optionKey="name"
                                       value="${ foto.tags ?: foto.tagsToAdd }" multiple="true"/>
                         </div>
                     </div>
