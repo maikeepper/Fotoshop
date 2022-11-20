@@ -2,10 +2,9 @@
 - Tags bearbeiten beim fotos/index
 - Es werden mit Sicherheit unterschiedliche Preise kommen - je nach Gruppenbild etc. Also beim Upload schon "Gruppen"
   (iSv Tags) angeben können.
-- -> Beim Entfernen von uploaded Fotos werden nicht die Tag-Input-Fields disabled (Gruppen-Tags werden noch mit als 
-  params übertragen)
 - User (=> Codes) Management (inkl. Rollen, fehlt leider in den automatisch erzeugten Views)
 - Anzeige 3-per-Reihe beim multiple und 2-per-Reihe im index testen
+- delete: method not allowed
 
 - Katalog-Druck-Funktion mit den aktuellen Nummern nach dem Speichern
 - Maximale Upload-Anzahl sollte vielleicht auf 50 oder so beschränkt werden? Auch, um kein pagination in die 

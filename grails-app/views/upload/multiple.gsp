@@ -84,7 +84,7 @@
         $( previewEntry ).find( 'input[name="origFilename"]' ).prop( 'disabled', true );
         $( previewEntry ).find( 'input[name="thumbnail"]' ).prop( 'disabled', true );
         $( previewEntry ).find( 'input[name="tagCount"]' ).prop( 'disabled', true );
-        $( previewEntry ).find( 'input[name="tags"]' ).prop( 'disabled', true );
+        $( previewEntry ).find( 'select[name="tags"]' ).prop( 'disabled', true );
     });
     $uploadedFiles.on( 'click', '.preview-removed', function( event ) {
         // show Foto display again
@@ -101,7 +101,7 @@
         $( previewEntry ).find( 'input[name="origFilename"]' ).removeAttr( 'disabled' );
         $( previewEntry ).find( 'input[name="thumbnail"]' ).removeAttr( 'disabled' );
         $( previewEntry ).find( 'input[name="tagCount"]' ).removeAttr( 'disabled' );
-        $( previewEntry ).find( 'input[name="tags"]' ).removeAttr( 'disabled' );
+        $( previewEntry ).find( 'select[name="tags"]' ).removeAttr( 'disabled' );
     });
 
     $('select[name="tags"]').on( 'change', function( event ) {
