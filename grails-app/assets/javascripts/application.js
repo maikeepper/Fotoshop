@@ -16,7 +16,7 @@ function handleServerResponse( data, textStatus, jqXHR, displayText ) {
         if( displayText ) {
             $flashMessage.text( displayText );
             $flashMessage.show();
-        } else if( data[ 'message' ] ) {
+        } else if( data && data[ 'message' ] ) {
             $flashMessage.text( data[ 'message' ] );
             $flashMessage.show();
         }

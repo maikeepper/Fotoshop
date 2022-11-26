@@ -30,7 +30,10 @@
                                 <th class="sortable"><a href="/user/index?sort=enabled&amp;max=10&amp;order=asc">
                                     <g:message code="user.enabled.label" default="Enabled"/>
                                 </a></th>
+                                <sec:ifAnyGranted roles="ROLE_ADMIN">
                                 <th><g:message code="authorities.label" default="Roles"/></th>
+                                <th></th>
+                                </sec:ifAnyGranted>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,11 +44,16 @@
                                     <input type="checkbox" name="enabled" ${ user.enabled ? 'checked="checked"' : '' }
                                            value="${ user.enabled }" data-id="${ user.id }" id="enabled${ user.id }"/>
                                 </td>
+                                <sec:ifAnyGranted roles="ROLE_ADMIN">
                                 <td>
                                     <g:select class="js-select2" name="authorities" data-id="${ user.id }" multiple="true"
                                               from="${ shop.fotos.authentication.Role.all }"
                                               optionKey="authority" value="${ user.authorities }"/>
                                 </td>
+                                <td>
+                                    <div class="user-delete" data-id="${ user.id }">&nbsp;</div>
+                                </td>
+                                </sec:ifAnyGranted>
                             </tr>
                         </g:each>
                         </tbody>
@@ -80,6 +88,7 @@
             });
         });
 
+        <sec:ifAnyGranted roles="ROLE_ADMIN">
         $('select[name="authorities"]').on( 'change', function( event ) {
             const $selectBox = $( event.target );
             const userId = $selectBox.data( 'id' );
@@ -96,6 +105,28 @@
                 error: handleServerError
             });
         });
+
+        const $userList = $( '#list-user' );
+        $userList.on( 'click', '.user-delete', function( event ) {
+            if( !confirm('${message(code: 'default.button.delete.confirm.message', default: 'Sind Sie sicher? Die Aktion kann nicht rückgängig gemacht werden.')}') ) {
+                return;
+            }
+            const target = event.target;
+            const tableRow = target.closest( 'tr' );
+            const userId = $( target ).data( 'id' );
+            $.ajax({
+                url: '/user/delete/' + userId + '?sessionId=${ sessionId }',
+                method: 'DELETE',
+                success: ( data, textStatus, jqXHR ) => {
+                    if( jqXHR.status < 300 ) {
+                        $( tableRow ).hide();
+                    }
+                },
+                error: handleServerError
+            });
+        });
+        </sec:ifAnyGranted>
+
     </script>
     </body>
 </html>

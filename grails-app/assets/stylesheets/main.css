@@ -592,3 +592,10 @@ img.grails-logo {
 #flashError {
     width: 100%;
 }
+
+.user-delete {
+    background-image: url(../images/skin/database_delete.png);
+    background-position: 0.7em center;
+    background-repeat: no-repeat;
+    text-indent: 25px;
+}

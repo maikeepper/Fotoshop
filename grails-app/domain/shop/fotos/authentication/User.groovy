@@ -4,6 +4,8 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
 
+import java.beans.Transient
+
 @GrailsCompileStatic
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
@@ -30,5 +32,10 @@ class User implements Serializable {
     static mapping = {
         table '`user`'
         password column: '`password`'
+    }
+
+    @Transient
+    boolean isAdmin() {
+        getAuthorities().contains( Role.findByAuthority( 'ROLE_ADMIN' ) )
     }
 }

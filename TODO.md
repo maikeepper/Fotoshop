@@ -1,14 +1,13 @@
 #TODO
-- User (=> Codes) Management (inkl. Rollen, fehlt leider in den automatisch erzeugten Views)
-    --> user/index + Spalte zum Ändern der Rollen für Admins
-    --> neuer User angelegt von STAFF: automatisch Elternrolle vergeben
-- Foto delete: method not allowed
-
+- FotoUpload gibt Command Validation Error beim Upload, obwohl alles geht.
+- Warenkorb
+- Gutscheine
 - Tags bearbeiten
 - Katalog-Druck-Funktion mit den aktuellen Nummern nach dem Speichern
 - Maximale Upload-Anzahl sollte vielleicht auf 50 oder so beschränkt werden? Auch, um kein pagination in die 
   multiple-View einbauen zu müssen - das würde nämlich die derzeitige Wiederherstellen-Funktionalität kaputt machen.
 - Suche/Filter nach Nummern und nach Tags
+- FotoController und FotoService sind wahrscheinlich überflüssig
 
 #MAYBE
 - image hashcode, um bereits hochgeladene Bilder wiederzuerkennen
