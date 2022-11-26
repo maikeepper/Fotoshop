@@ -1,5 +1,6 @@
 .select2-container {
-  min-width: 600px; }
+  min-width: 360px;
+}
   @media (max-width: 991.98px) {
     .select2-container {
       min-width: 100%; } }

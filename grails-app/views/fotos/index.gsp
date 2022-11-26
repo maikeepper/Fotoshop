@@ -7,9 +7,7 @@
 <body>
 
 <div id="content" role="main">
-    <g:if test="${ flash.message ?: cmd?.errors }">
-    <div class="flash_message error">${ flash.message ?: cmd?.errors }</div>
-    </g:if>
+    <ui:message data="${flash}"/>
 
     <div id="fotosList" class="container justify-content-center">
         <div class="row">
@@ -52,12 +50,11 @@
                 <div class="preview-entry" title="${ foto.tags?.join( ', ' ) }">
                     <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
                            class="preview manageable" alt="${ foto.thumbnail }" width="${ 960.intdiv( itemsPerRow ) }px"/>
-                    <div class="imageNumber fotoBadge"
+                    <div class="imageNumber fotoBadge" data-id="${ foto.id }"
                          title="${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }">${ foto.id }</div>
                     <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
-                    <%-- TODO confirm, ajax call für kein redirect --%>
-                    <g:link controller="fotos" action="delete" id="${ foto.id }" class="uploadHandle fotoBadge"
-                        title="${ g.message( code: 'fotos.remove', default: 'Foto löschen' ) }">X</g:link>
+                    <div class="uploadHandle fotoBadge" data-id="${ foto.id }"
+                         title="${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }">X</div>
                     </sec:ifAnyGranted>
                 </div>
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
@@ -77,7 +74,7 @@
 <script>
     $('.imageNumber.fotoBadge').on( 'click', function( event ) {
         const badge = $( event.target );
-        const fotoId = event.target.innerText;
+        const fotoId = badge.data( 'id' );
         if( badge.hasClass( 'selected' ) ) {
             // TODO removeFromCart( fotoId );
             badge.removeClass( 'selected' );
@@ -87,6 +84,37 @@
             badge.addClass( 'selected' );
             badge.attr( 'title', '${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }' );
         }
+    });
+
+    const $fotoList = $('#fotosList');
+    $fotoList.on( 'click', '.uploadHandle.fotoBadge', function( event ) {
+        if( !confirm('${message(code: 'default.button.delete.confirm.message', default: 'Sind Sie sicher? Die Aktion kann nicht rückgängig gemacht werden.')}') ) {
+            return;
+        }
+        // hide Foto display and delete Foto
+        const target = event.target;
+        const previewEntry = target.closest( '.preview-entry' );
+        const fotoId = $( event.target ).data( 'id' );
+        $.ajax({
+            url: '${g.createLink( controller: "fotos", action: "delete" )}/' + fotoId,
+            method: 'DELETE',
+            success: function( data, textStatus, jqXHR ) {
+                if( jqXHR.status < 300 ) {
+                    $(previewEntry).hide();
+                } else {
+                    const $flashError = $('#flashError');
+                    $flashError.text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
+                    $flashError.show();
+                }
+            },
+            error: function( jqXHR, textStatus, errorThrown ) {
+                if( jqXHR ) {
+                    const $flashError = $('#flashError');
+                    $flashError.text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
+                    $flashError.show();
+                }
+            }
+        });
     });
 </script>
 </body>

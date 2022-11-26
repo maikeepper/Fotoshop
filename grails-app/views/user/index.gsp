@@ -19,12 +19,7 @@
             <section class="row">
                 <div id="list-user" class="col-12 content scaffold-list" role="main">
                     <h1><g:message code="default.list.label" args="['Code']" /></h1>
-                    <div id="flashMessage" class="message" role="status" ${ flash.message ? '' : 'style=display:none;' }>
-                        ${flash.message}
-                    </div>
-                    <div id="flashError" class="errors" role="status" ${ flash.error ? '' : 'style=display:none;' }>
-                        ${flash.error}
-                    </div>
+                    <ui:message data="${flash}"/>
 
                     <table>
                         <thead>

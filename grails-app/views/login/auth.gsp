@@ -45,7 +45,7 @@
 		<div class="fheader"><g:message code="login.header" default="Bitte geben Sie Ihren Code ein:"/></div>
 
 		<g:if test="${ flash.message }">
-		<div class="flash_message error"><g:message code="login.error" default="Es konnte leider kein entsprechender Code gefunden werden."/></div>
+		    <ui:message error="${message( code: 'login.error', default: 'Es konnte leider kein entsprechender Code gefunden werden.')}"/>
 		</g:if>
 
 		<form action="/login/authenticate" method="POST" id="loginForm" class="cssform">

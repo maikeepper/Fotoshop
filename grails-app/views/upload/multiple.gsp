@@ -8,9 +8,7 @@
 <body>
 
 <div id="content" role="main">
-    <g:if test="${ flash.message ?: cmd?.errors }">
-    <div class="flash_message error">${ flash.message ?: cmd?.errors }</div>
-    </g:if>
+    <ui:message data="${flash ?: cmd}"/>
 
     <div id="uploadedFiles" class="container justify-content-center">
         <div class="row">

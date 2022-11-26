@@ -52,7 +52,7 @@ class FotosController {
         }
         flash.message = "${ fotos.size() } Fotos gespeichert!"
 
-        render view: 'index', model: [ fotoList: fotos ]
+        redirect( action: 'index' )
     }
 
     @Secured( 'permitAll()' )
