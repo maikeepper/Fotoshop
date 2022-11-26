@@ -30,6 +30,7 @@
                                 <th class="sortable"><a href="/user/index?sort=enabled&amp;max=10&amp;order=asc">
                                     <g:message code="user.enabled.label" default="Enabled"/>
                                 </a></th>
+                                <th><g:message code="authorities.label" default="Roles"/></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,6 +40,11 @@
                                 <td>
                                     <input type="checkbox" name="enabled" ${ user.enabled ? 'checked="checked"' : '' }
                                            value="${ user.enabled }" data-id="${ user.id }" id="enabled${ user.id }"/>
+                                </td>
+                                <td>
+                                    <g:select class="js-select2" name="authorities" data-id="${ user.id }" multiple="true"
+                                              from="${ shop.fotos.authentication.Role.all }"
+                                              optionKey="authority" value="${ user.authorities }"/>
                                 </td>
                             </tr>
                         </g:each>
@@ -55,6 +61,10 @@
         </div>
     </div>
     <script>
+        const enabledText = '<g:message code="message.user.enabled" default="Code enabled"/>';
+        const disabledText = '<g:message code="message.user.disabled" default="Code disabled"/>';
+        const rolesChangedText = '<g:message code="message.user.rolesChanged" default="Roles changed"/>';
+
         $('input[name="enabled"]').on( 'change', function( event ) {
             const elem = event.target;
             const userId = $( elem ).data( 'id' );
@@ -65,23 +75,25 @@
                 data: {
                     'enabled': userEnabled
                 },
-                success: function( data, textStatus, jqXHR ) {
-                    if( jqXHR.status < 300 ) {
-                        const enabledText = '<g:message code="message.user.enabled" default="Code enabled"/>';
-                        const disabledText = '<g:message code="message.user.disabled" default="Code disabled"/>';
-                        $('#flashMessage').text((userEnabled ? enabledText : disabledText));
-                        $('#flashMessage').show();
-                    } else {
-                        $('#flashError').text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
-                        $('#flashError').show();
-                    }
+                success: ( data, textStatus, jqXHR ) => handleServerResponse( data, textStatus, jqXHR, (userEnabled ? enabledText : disabledText) ),
+                error: handleServerError
+            });
+        });
+
+        $('select[name="authorities"]').on( 'change', function( event ) {
+            const $selectBox = $( event.target );
+            const userId = $selectBox.data( 'id' );
+            //const authorities = $selectBox.find( 'option:selected' ).val();
+            const authorities = $selectBox.val();
+            console.log(authorities);
+            $.ajax({
+                url: '/user/update/' + userId + '?sessionId=${ sessionId }',
+                method: 'PUT',
+                data: {
+                    'authorities': authorities
                 },
-                error: function( jqXHR, textStatus, errorThrown ) {
-                    if( jqXHR ) {
-                        $('#flashError').text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
-                        $('#flashError').show();
-                    }
-                }
+                success: ( data, textStatus, jqXHR ) => handleServerResponse( data, textStatus, jqXHR, rolesChangedText ),
+                error: handleServerError
             });
         });
     </script>

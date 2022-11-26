@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Uploaded Files</title>
-    <asset:stylesheet src="select2.css"/>
 </head>
 <body>
 
@@ -104,11 +103,11 @@
 
     $('select[name="tags"]').on( 'change', function( event ) {
         const $selectBox = $( event.target );
-        const count = $selectBox.find( 'option:selected' ).length;
+        //const count = $selectBox.find( 'option:selected' ).length;
+        const count = $selectBox.val().length;
         const $tagCount = $( event.target.previousSibling.previousSibling );
         $tagCount.val( count );
     });
 </script>
-<asset:javascript src="select2.js"/>
 </body>
 </html>

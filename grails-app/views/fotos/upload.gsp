@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Upload</title>
-    <asset:stylesheet src="select2.css"/>
 </head>
 <body>
 
@@ -53,6 +52,5 @@
       $('.upload-button').attr( 'disabled', false );
     });
 </script>
-<asset:javascript src="select2.js"/>
 </body>
 </html>

@@ -9,3 +9,30 @@
 //= require popper.min
 //= require bootstrap
 //= require_self
+
+function handleServerResponse( data, textStatus, jqXHR, displayText ) {
+    if( jqXHR.status < 300 ) {
+        const $flashMessage = $('#flashMessage');
+        if( displayText ) {
+            $flashMessage.text( displayText );
+            $flashMessage.show();
+        } else if( data[ 'message' ] ) {
+            $flashMessage.text( data[ 'message' ] );
+            $flashMessage.show();
+        }
+    } else {
+        const $flashError = $('#flashError');
+        $flashError.text(jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR));
+        $flashError.show();
+    }
+}
+
+function handleServerError( jqXHR, textStatus, errorThrown ) {
+    const $flashError = $('#flashError');
+    if( jqXHR ) {
+        $flashError.text( jqXHR.responseText ? jqXHR.responseText : JSON.stringify(jqXHR) );
+    } else {
+        $flashError.text( textStatus + ': ' + errorThrown );
+    }
+    $flashError.show();
+}
