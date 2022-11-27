@@ -1,6 +1,14 @@
 #TODO
-- FotoUpload gibt Command Validation Error beim Upload, obwohl alles geht.
 - Warenkorb
+  --> cart/index oder cart/checkout dann als Paypal-Startseite
+  --> mit E-Mail-Eingabe-Feld, um den Download-Link nachher auch per E-Mail zu versenden
+  --> und redirect zur Download-Seite nach erfolgreichem Kauf
+
+- Foto-Downloadseite mit Käufen, die auch aus einer E-Mail später noch einmal erreichbar sind. 
+  --> Domainklasse mit UUID als Id 
+  --> Show-View mit Download-als-Zip und Einzeldownloads der Originalbilder.
+
+- FotoUpload gibt Command Validation Error beim Upload, obwohl alles geht.
 - Gutscheine
 - Tags bearbeiten
 - Katalog-Druck-Funktion mit den aktuellen Nummern nach dem Speichern
