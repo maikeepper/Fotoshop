@@ -1,3 +1,4 @@
+<%@ page import="grails.plugin.springsecurity.SpringSecurityUtils" %>
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -39,7 +40,11 @@
         <div class="collapse navbar-collapse" aria-expanded="false" style="height: 0.8px;" id="navbarContent">
             <ul class="nav navbar-nav ml-auto">
                 <ul class="nav-menu">
-                    <li class="item"><a href="/fotos/" class="nav-link">Fotos</a></li>
+                    <% String fotoNavEntry = 'Fotos';
+                       if( SpringSecurityUtils.ifAnyGranted( 'ROLE_ADMIN' ) ) {
+                           fotoNavEntry += ' (' + applicationContext.getBean( 'fotoService' )?.count() + ')';
+                       } %>
+                    <li class="item"><a href="/fotos/" class="nav-link">${ fotoNavEntry }</a></li>
                     <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER">
                     <li class="item"><a href="/fotos/upload" class="nav-link">Upload</a></li>
                     </sec:ifAnyGranted>
@@ -49,7 +54,6 @@
                     <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
                     <li class="item"><a href="/gutscheine/" class="nav-link">Gutscheine</a></li>
                     </sec:ifAnyGranted>
-                    <li class="item"><a href="/warenkorb/" class="nav-link">Warenkorb</a></li>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
                     <li class="item"><a href="/h2-console" class="nav-link">DB Console</a></li>
                     <li class="item"><a href="/logout" class="nav-link">Logout</a></li>
