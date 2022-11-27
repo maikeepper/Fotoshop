@@ -24,10 +24,11 @@
                 </sec:ifAnyGranted>
             </div>
             <div class="col-4">
-                <g:form name="selectFotos" controller="fotos" action="checkout">
-                    <g:submitButton class="btn-success btn-flow" name="checkoutSubmit"
-                                    value="${ message( code: 'fotos.checkout', default: 'Zum Warenkorb' ) }"/>
-                    <span id="cartCount" class="cartCount badge">${ selectedFotos?.size() }</span>
+                <g:form name="selectFotos" controller="cart" action="checkout">
+                    <input type="hidden" name="selectedFotos" value=""/>
+                    <g:submitButton class="btn-success btn-flow" name="cartCheckoutSubmit"
+                                    value="${ message( code: 'cart.checkout', default: 'Fotos kaufen' ) }"
+                                    disabled="true"/>
                 </g:form>
             </div>
             <div class="col-4">
@@ -72,17 +73,17 @@
 
 %{--<content tag="footer"></content>--}%
 <script>
+    initSelectedFotos( '${ message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }',
+                       '${ message( code: 'fotos.remove', default: 'Entfernen' ) }',
+                       '${ message( code: 'cart.checkout', default: 'Fotos kaufen' ) }' );
+
     $('.imageNumber.fotoBadge').on( 'click', function( event ) {
         const badge = $( event.target );
         const fotoId = badge.data( 'id' );
         if( badge.hasClass( 'selected' ) ) {
-            // TODO removeFromCart( fotoId );
-            badge.removeClass( 'selected' );
-            badge.attr( 'title', '${ g.message( code: 'fotos.buyMe', default: 'In den Warenkorb' ) }' );
+            removeFromCart( fotoId, badge );
         } else {
-            // TODO addToCart( fotoId );
-            badge.addClass( 'selected' );
-            badge.attr( 'title', '${ g.message( code: 'fotos.remove', default: 'Entfernen' ) }' );
+            addToCart( fotoId, badge );
         }
     });
 
