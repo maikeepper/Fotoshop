@@ -5,7 +5,7 @@ import grails.validation.Validateable
 import groovy.transform.ToString
 import org.springframework.web.multipart.MultipartFile
 
-@Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
+@Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER' ] )
 class UploadController {
 
     UploadService uploadService

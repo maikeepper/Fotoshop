@@ -18,10 +18,10 @@ class FotosController {
         render view: 'index'
     }
 
-    @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
+    @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER' ] )
     def upload() {}
 
-    @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER', 'ROLE_STAFF' ] )
+    @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER' ] )
     @Transactional
     def saveMultiple() {
         log.debug( "---------------------------------\n$params\n---------------------------------" )

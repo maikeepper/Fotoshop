@@ -51,7 +51,7 @@
                     <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_STAFF">
                     <li class="item"><a href="/user/" class="nav-link">Codes</a></li>
                     </sec:ifAnyGranted>
-                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
+                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_STAFF">
                     <li class="item"><a href="/gutscheine/" class="nav-link">Gutscheine</a></li>
                     </sec:ifAnyGranted>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">

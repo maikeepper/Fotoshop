@@ -1,12 +1,9 @@
 #TODO
-- Warenkorb
-  --> cart/index oder cart/checkout dann als Paypal-Startseite
+- Purchase/Download action zum File Stream bauen
+- Einkauf / Paypal
+  --> cart/checkout view dann als Paypal-Startseite
   --> mit E-Mail-Eingabe-Feld, um den Download-Link nachher auch per E-Mail zu versenden
-  --> und redirect zur Download-Seite nach erfolgreichem Kauf
-
-- Foto-Downloadseite mit Käufen, die auch aus einer E-Mail später noch einmal erreichbar sind. 
-  --> Domainklasse mit UUID als Id 
-  --> Show-View mit Download-als-Zip und Einzeldownloads der Originalbilder.
+  --> und redirect zur Download-Seite purchase/show nach erfolgreichem Kauf
 
 - FotoUpload gibt Command Validation Error beim Upload, obwohl alles geht.
 - Gutscheine
@@ -15,7 +12,10 @@
 - Maximale Upload-Anzahl sollte vielleicht auf 50 oder so beschränkt werden? Auch, um kein pagination in die 
   multiple-View einbauen zu müssen - das würde nämlich die derzeitige Wiederherstellen-Funktionalität kaputt machen.
 - Suche/Filter nach Nummern und nach Tags
+- Auswahl zurücksetzen Knopf in der Fotos list (auch automatisch beim Laden der Seite, und beim Logout)
 - FotoController und FotoService sind wahrscheinlich überflüssig
+- Fotos sollten nicht gelöscht werden können, sondern nur als deleted markiert und nicht mehr in der Liste auftauchen 
+  (jedenfalls nachdem sie hochgeladen und gespeichert und damit auch potenziell gekauft worden sind)
 
 #MAYBE
 - image hashcode, um bereits hochgeladene Bilder wiederzuerkennen
