@@ -55,6 +55,7 @@
                     <li class="item"><a href="/gutscheine/" class="nav-link">Gutscheine</a></li>
                     </sec:ifAnyGranted>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <li class="item"><a href="/purchase/" class="nav-link">Einkäufe</a></li>
                     <li class="item"><a href="/h2-console" class="nav-link">DB Console</a></li>
                     <li class="item"><a href="/logout" class="nav-link" onclick="clearSelectedItems();">Logout</a></li>
                     </sec:ifAnyGranted>

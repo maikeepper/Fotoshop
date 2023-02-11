@@ -8,7 +8,9 @@ class PurchaseController {
     def scaffold = Purchase
 
     @Secured( [ 'ROLE_ADMIN', 'ROLE_STAFF' ] )
-    def index() { }
+    def index() {
+        [ purchaseList: Purchase.list( params ), purchaseCount: Purchase.count() ]
+    }
 
     @Secured( 'IS_AUTHENTICATED_FULLY' )
     def show() {
@@ -30,6 +32,7 @@ class PurchaseController {
 
         if( !purchase ) {
             flash.error = "Bilder nicht gefunden - Download nicht möglich."
+            redirect controller: 'cart', action: 'checkout'
         }
 
         respond purchase

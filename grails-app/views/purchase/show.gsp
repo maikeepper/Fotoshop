@@ -46,7 +46,7 @@
                         </div>
 
                         <% int itemsPerRow = 4 %>
-                        <g:each in="${ purchase?.fotos }" var="foto" status="i">
+                        <g:each in="${ purchase?.fotos?.sort{ it.id } }" var="foto" status="i">
                         <g:if test="${ i%itemsPerRow == 0 }">
                         <div class="row">
                         </g:if>
