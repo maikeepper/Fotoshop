@@ -12,17 +12,22 @@ class CartController {
 
     @Transactional
     def checkout() {
-        final List<Long> selectedFotoIds = ( List<Long> ) Eval.me( params.selectedFotos )
+        final Set<Long> selectedFotoIds = params.selectedFotos?.tokenize(',')?.collect {
+            try {
+                Long.parseLong(it.trim())
+            } catch (NumberFormatException nfe) {
+            }
+        } as Set<Long>
 
         Purchase purchase = new Purchase(
                 uuid: UUID.randomUUID().toString()
         )
 
-        selectedFotoIds.each { fotoId ->
+        selectedFotoIds?.each { fotoId ->
             try {
                 purchase.addToFotos( Foto.read( fotoId ) )
             } catch( Exception e ) {
-                log.error( 'Could not find Foto for selected id ' + fotoId, e )
+                log.error( '[' + purchase.uuid + '] Could not find Foto for selected id ' + fotoId )
             }
         }
 

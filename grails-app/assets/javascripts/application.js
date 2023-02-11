@@ -41,7 +41,7 @@ function handleServerError( jqXHR, textStatus, errorThrown ) {
 const INPUT_SELECTED_FOTOS_NAME = 'selectedFotos';
 let DESELECTED_TITLE = 'In den Warenkorb';
 let SELECTED_TITLE = 'Entfernen';
-let CHECKOUT_BUTTON_LABEL = 'Fotos kaufien';
+let CHECKOUT_BUTTON_LABEL = 'Fotos kaufen';
 
 /*
  * On page load initialize the selected items.
@@ -109,11 +109,11 @@ function addToCart( fotoId, $badgeElem, fromInit ) {
 
     // update GUI elements - checkout button label + disabled state
     const $checkoutButton = $( 'input[name="cartCheckoutSubmit"]' );
-    $checkoutButton.val( CHECKOUT_BUTTON_LABEL + ' (' + selectedFotos.length + ')');
+    $checkoutButton.val( CHECKOUT_BUTTON_LABEL + ' (' + selectedFotos.length + ')' );
     $checkoutButton.removeAttr( 'disabled' );
 
     // update GUI elements - form parameter
-    $( 'input[name="' + INPUT_SELECTED_FOTOS_NAME + '"]' ).val( JSON.stringify( selectedFotos ) );
+    $( 'input[name="' + INPUT_SELECTED_FOTOS_NAME + '"]' ).val( selectedFotos.join(',') );
 }
 
 function removeFromCart( fotoId, $badgeElem, fromInit ) {
@@ -147,5 +147,5 @@ function removeFromCart( fotoId, $badgeElem, fromInit ) {
     }
 
     // update GUI elements - form parameter
-    $( 'input[name="' + INPUT_SELECTED_FOTOS_NAME + '"]' ).val( JSON.stringify( selectedFotos ) );
+    $( 'input[name="' + INPUT_SELECTED_FOTOS_NAME + '"]' ).val( selectedFotos.join(',') );
 }
