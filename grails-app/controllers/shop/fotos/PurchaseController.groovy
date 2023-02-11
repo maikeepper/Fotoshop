@@ -2,8 +2,6 @@ package shop.fotos
 
 import grails.plugin.springsecurity.annotation.Secured
 
-import static org.springframework.http.HttpStatus.NOT_FOUND
-
 @Secured( [ 'ROLE_ADMIN' ] )
 class PurchaseController {
 
@@ -20,14 +18,36 @@ class PurchaseController {
             return
         }
 
-        respond Purchase.findByUuid( uuid )
+        Purchase purchase = uuid.isNumber() ? Purchase.read( uuid as Long ) : Purchase.findByUuid( uuid )
+//        if( params.boolean( 'fixmePaid' ) ) {
+//            Purchase.withTransaction {
+//                purchase.paid = true
+//                purchase.save(failOnError: true, validate: true, flush: true)
+//            }
+//            respond purchase
+//            return
+//        }
+
+        if( !purchase ) {
+            flash.error = "Bilder nicht gefunden - Download nicht möglich."
+        }
+
+        respond purchase
     }
 
+    @Secured( 'IS_AUTHENTICATED_FULLY' )
     def download() {
         final String uuid = ( params.id ?: params.uuid ) as String
-        final Purchase purchase = Purchase.findByUuid( uuid )
+        final Purchase purchase = uuid.isNumber() ? Purchase.read( uuid as Long ) : Purchase.findByUuid( uuid )
         if( !uuid || !purchase ) {
-            redirect action: 'show'
+            flash.error = "Bilder nicht gefunden - Download nicht möglich."
+            redirect action: 'show', id: uuid
+            return
+        }
+
+        if( !purchase.paid ) {
+            flash.error = "Die Bilder wurden noch nicht bezahlt - Download noch nicht erlaubt."
+            redirect action: 'show', id: uuid
             return
         }
 

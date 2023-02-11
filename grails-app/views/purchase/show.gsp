@@ -15,7 +15,6 @@
                     <ul>
                         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
                     </ul>
                 </div>
             </section>
@@ -29,11 +28,19 @@
                         <div class="row sticky-top">
                             <div class="col-4"></div>
                             <div class="col-4">
+                                <g:if test="${purchase?.paid}">
                                 <g:form name="downloadFotos" controller="purchase" action="download">
                                     <input type="hidden" name="id" value="${purchase?.uuid}"/>
                                     <g:submitButton class="btn-success btn-flow" name="downloadPurchase"
                                                     value="${ message( code: 'purchase.download.button.label', default: 'Download ZIP' ) }"/>
                                 </g:form>
+                                </g:if><g:else>
+                                <g:form name="payFotos" controller="cart" action="checkout">
+                                    <input type="hidden" name="purchaseUuid" value="${purchase?.uuid}"/>
+                                    <g:submitButton class="btn-success btn-flow" name="paySubmit"
+                                                    value="${ message( code: 'cart.checkout', default: 'Fotos kaufen' ) }"/>
+                                </g:form>
+                                </g:else>
                             </div>
                             <div class="col-4"></div>
                         </div>

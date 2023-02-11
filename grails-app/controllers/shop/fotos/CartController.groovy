@@ -6,12 +6,17 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured( 'IS_AUTHENTICATED_FULLY' )
 class CartController {
 
-    def scaffold = Purchase
+    //def scaffold = Purchase nicht nötig, glaub ich
 
     //def index() {}
 
     @Transactional
     def checkout() {
+
+        if( params.purchaseUuid ) {
+            return [ purchase: Purchase.findByUuid( params.purchaseUuid ) ]
+        }
+
         final Set<Long> selectedFotoIds = params.selectedFotos?.tokenize(',')?.collect {
             try {
                 Long.parseLong(it.trim())
@@ -31,11 +36,8 @@ class CartController {
             }
         }
 
-        purchase = purchase.save()
+        purchase = purchase.save( failOnError: true, validate: true, flush: true )
 
-        // TODO redirect to Paypal Page und die redirected im Erfolgsfall dann zu ->
-
-        flash.message = "Gekaufte Fotos: ${ selectedFotoIds } - ${ purchase.getPriceInCent() / 100 } EUR"
-        redirect controller: 'purchase', action: 'show', id: purchase.uuid
+        [ purchase: purchase ]
     }
 }
