@@ -57,10 +57,20 @@ class FotosController {
 
     @Secured( 'permitAll()' )
     def preview() {
-        // TODO kann man hier eine try-again-later response senden, wenn das Thumbnail noch nicht da sein sollte?
-        final String thumbnailFilename = params.id?.toString()
-        final Path thumbnailPath = Paths.get( UploadService.THUMBS_DIR_NAME, thumbnailFilename )
-        final byte[] thumbnailBytes = Files.readAllBytes( thumbnailPath )
+        final Purchase purchase = params.purchaseId ? Purchase.get( params.purchaseId as Long ) : null
+        Path filePath
+        if( purchase?.paid ) {
+            // show orig file for paid purchases
+            final Foto foto = params.id?.isNumber() ? Foto.get( params.id as Long ) : Foto.findByThumbnail( params.id?.toString() )
+            filePath = Paths.get( FileService.ORIG_DIR_NAME, foto?.origFilename )
+        }
+        if( !filePath ) {
+            // TODO kann man hier eine try-again-later response senden, wenn das Thumbnail noch nicht da sein sollte?
+            final String thumbnailFilename = params.id?.toString()
+            filePath = Paths.get( FileService.THUMBS_DIR_NAME, thumbnailFilename )
+        }
+
+        final byte[] thumbnailBytes = Files.readAllBytes( filePath )
         render( file: thumbnailBytes, contentType: 'image/jpeg' )
     }
 }

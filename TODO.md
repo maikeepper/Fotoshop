@@ -18,6 +18,7 @@
   (jedenfalls nachdem sie hochgeladen und gespeichert und damit auch potenziell gekauft worden sind)
 - Login-Code sollte case insensitiv sein
 - /purchase/index aufhübschen (fotos -> fotos.size, +dateCreated)
+- AppConfig Key-Value zur Eingabe/Anpassung der Texte und Keys
 
 #MAYBE
 - image hashcode, um bereits hochgeladene Bilder wiederzuerkennen

@@ -2,10 +2,18 @@ package shop.fotos
 
 import grails.plugin.springsecurity.annotation.Secured
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 @Secured( [ 'ROLE_ADMIN' ] )
 class PurchaseController {
 
+    static final DateTimeFormatter BASIC_DATEFORMAT = DateTimeFormatter.ofPattern('yyyyMMdd-HHmmss')
+
     def scaffold = Purchase
+
+    FileService fileService
+
 
     @Secured( [ 'ROLE_ADMIN', 'ROLE_STAFF' ] )
     def index() {
@@ -41,7 +49,7 @@ class PurchaseController {
     @Secured( 'IS_AUTHENTICATED_FULLY' )
     def download() {
         final String uuid = ( params.id ?: params.uuid ) as String
-        final Purchase purchase = uuid.isNumber() ? Purchase.read( uuid as Long ) : Purchase.findByUuid( uuid )
+        final Purchase purchase = uuid?.isNumber() ? Purchase.read( uuid as Long ) : Purchase.findByUuid( uuid )
         if( !uuid || !purchase ) {
             flash.error = "Bilder nicht gefunden - Download nicht möglich."
             redirect action: 'show', id: uuid
@@ -54,11 +62,21 @@ class PurchaseController {
             return
         }
 
-        println "##########################"
-        // TODO Download action zum File Stream bauen
-        println "FILE DOWNLOAD OF ${purchase.fotos?.size()} FOTOS (id: ${params.id}, uuid: ${params.uuid})"
-        println "##########################"
+        final File zipFile = new File( fileService.createPurchaseZip( purchase ) )
 
-        redirect action: 'show', id: uuid
+        if( !zipFile?.isFile() ) {
+            flash.error = "Konnte kein Zip erstellen - Download nicht möglich."
+            redirect action: 'show', id: uuid
+            return
+        }
+
+        response.setHeader( "Content-disposition", "attachment;filename=FotoShop_${LocalDateTime.now().format(BASIC_DATEFORMAT)}.zip" )
+        zipFile.withInputStream {
+            response.outputStream << it
+            response.contentType = 'application/zip'
+            response.outputStream.flush()
+        }
+
+        null
     }
 }

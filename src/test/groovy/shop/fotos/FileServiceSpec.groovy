@@ -3,7 +3,7 @@ package shop.fotos
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class UploadServiceSpec extends Specification implements ServiceUnitTest<UploadService>{
+class FileServiceSpec extends Specification implements ServiceUnitTest<FileService>{
 
     def setup() {
     }

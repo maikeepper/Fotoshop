@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile
 @Secured( [ 'ROLE_ADMIN', 'ROLE_UPLOADER' ] )
 class UploadController {
 
-    UploadService uploadService
+    FileService fileService
 
 
     def multiple( FotoUploadCommand cmd ) {
@@ -20,7 +20,7 @@ class UploadController {
         }
 
         long tookUpl = System.currentTimeMillis()
-        final List<Foto> uploadedFotos = uploadService.uploadFotos( cmd )
+        final List<Foto> uploadedFotos = fileService.uploadFotos( cmd )
         println "Foto upload took ${System.currentTimeMillis() - tookUpl} ms."
 
         log.info( "Created ${ uploadedFotos?.size() } Fotos from ${ cmd.files?.size() } uploaded files." )

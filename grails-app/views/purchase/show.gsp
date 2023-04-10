@@ -52,8 +52,9 @@
                         </g:if>
                             <div class="col col-${ 12.intdiv( itemsPerRow ) }">
                                 <div class="preview-entry" title="${ foto.tags?.join( ', ' ) }">
-                                    <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.thumbnail ) }"
-                                           class="preview manageable" alt="${ foto.thumbnail }" width="${ 960.intdiv( itemsPerRow ) }px"/>
+                                    <g:img uri="${ g.createLink( controller: 'fotos', action: 'preview', id: foto.id,
+                                            params: [ purchaseId: purchase?.id] ) }"
+                                           class="preview manageable" alt="${ foto.origFilename }" width="${ 960.intdiv( itemsPerRow ) }px"/>
 %{--                                    <div class="imageNumber fotoBadge" data-id="${ foto.id }"--}%
 %{--                                         title="${ g.message( code: 'fotos.download', default: 'Download' ) }">${ foto.id }</div>--}%
                                 </div>

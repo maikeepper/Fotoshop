@@ -32,7 +32,7 @@ class BootStrap {
         Tag.withNewTransaction {
             ['Rote Gruppe', 'Gelbe Gruppe', 'Orangene Gruppe', 'Grüne Gruppe', 'Blaue Gruppe',
              'Klein-Rote Gruppe', 'Klein-Gelbe Gruppe', 'Klein-Orangene Gruppe',
-          'Klein-Grüne Gruppe', 'Klein-Blaue Gruppe' ].each { gruppe ->
+             'Klein-Grüne Gruppe', 'Klein-Blaue Gruppe' ].each { gruppe ->
                 Tag.findOrSaveWhere(name: gruppe)
             }
         }

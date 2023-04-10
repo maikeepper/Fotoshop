@@ -12,9 +12,11 @@ import javax.imageio.ImageIO
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 @Transactional
-class UploadService {
+class FileService {
 
 
     public static final String ORIG_DIR_NAME = 'uploads'
@@ -72,4 +74,28 @@ class UploadService {
 
         uploadedFotos
     }
- }
+
+
+    String createPurchaseZip( final Purchase purchase ) {
+        final String tmpPurchaseZipFileName = Files.createTempFile( purchase?.uuid, '.zip' ).toString()
+
+        ZipOutputStream zipFile = new ZipOutputStream( new FileOutputStream( tmpPurchaseZipFileName ) )
+
+        purchase?.fotos?.each { foto ->
+            final File fotoFile = new File( ORIG_DIR_NAME, foto.origFilename )
+
+            if( fotoFile?.isFile() ) {
+                zipFile.putNextEntry( new ZipEntry( foto.origFilename ) )
+                def buffer = new byte[ fotoFile.size() ]
+                fotoFile.withInputStream {
+                    zipFile.write( buffer, 0, it.read( buffer ) )
+                }
+                zipFile.closeEntry()
+            }
+        }
+
+        zipFile.close()
+
+        tmpPurchaseZipFileName
+   }
+}
