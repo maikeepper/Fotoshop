@@ -599,3 +599,8 @@ img.grails-logo {
     background-repeat: no-repeat;
     text-indent: 25px;
 }
+
+.sticky-top a {
+    text-decoration: none;
+    background-color: #fcfcfc;
+}

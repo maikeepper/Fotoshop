@@ -17,6 +17,14 @@
         </div>
         <div class="row sticky-top">
             <div class="col-4">
+                <%-- params.offset is null or a String... --%>
+                <% int currentOffset = Integer.parseInt( params.offset?.toString() ?: '0' )
+                   int prevOffset = Math.max( currentOffset - ( params.max ?: 10 ), 0 ) %>
+                <g:link elementId="fotosPrev" controller="fotos" action="index"
+                        class="btn btn-outline-success btn-flow ${ currentOffset == 0 ? 'disabled' : ''}"
+                        params="${ params + [ 'offset': prevOffset ] }">
+                    ${ message( code: 'fotos.button.prev', default: '<<' ) }
+                </g:link>
                 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
                     <g:link controller="fotos" action="index" class="btn btn-outline-success btn-flow">
                         ${ message( code: 'fotos.button.list', default: 'Zu allen Fotos' ) }
@@ -32,6 +40,13 @@
                 </g:form>
             </div>
             <div class="col-4">
+                <%-- params.offset is null or a String... --%>
+                <% int nextOffset = Math.max( currentOffset + ( params.max ?: 10 ), 0 ) %>
+                <g:link elementId="fotosNext" controller="fotos" action="index"
+                        class="btn btn-outline-success btn-flow ${ fotoCount <= nextOffset ? 'disabled' : ''}"
+                        params="${ params + [ 'offset': nextOffset ] }">
+                    ${ message( code: 'fotos.button.next', default: '>>' ) }
+                </g:link>
                 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UPLOADER,ROLE_STAFF">
                     <%-- TODO Katalog drucken --%>
                     <g:form name="createCatalogue" controller="fotos" action="createCatalogue">

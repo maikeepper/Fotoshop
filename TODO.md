@@ -1,5 +1,4 @@
 #TODO
-- Purchase/Download action zum File Stream bauen
 - Einkauf / Paypal
   --> cart/checkout view dann als Paypal-Startseite
   --> mit E-Mail-Eingabe-Feld, um den Download-Link nachher auch per E-Mail zu versenden
@@ -11,7 +10,6 @@
 - Katalog-Druck-Funktion mit den aktuellen Nummern nach dem Speichern
 - Maximale Upload-Anzahl sollte vielleicht auf 50 oder so beschränkt werden? Auch, um kein pagination in die 
   multiple-View einbauen zu müssen - das würde nämlich die derzeitige Wiederherstellen-Funktionalität kaputt machen.
-- Aber pagination in die Fotos list
 - Suche/Filter nach Nummern und nach Tags
 - Auswahl zurücksetzen Knopf in der Fotos list (auch automatisch beim Laden der Seite, und beim Logout)
 - Fotos sollten nicht gelöscht werden können, sondern nur als deleted markiert und nicht mehr in der Liste auftauchen 
