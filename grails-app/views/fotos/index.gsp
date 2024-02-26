@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Fotos St. Michael, Trier-Mariahof</title>
+    <title>Fotos</title>
 </head>
 <body>
 

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>
-        <g:layoutTitle default="Fotos St. Michael"/>
+        <g:layoutTitle default="Fotos"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
@@ -28,8 +28,8 @@
         <div id="contact" class="header contact" role="navigation">
             <h2>Anmerkungen, Fragen oder Bitten</h2>
             <p>
-                Senden Sie uns eine E-Mail an <a href="mailto:ea-st-michael@contio.eu">ea-st-michael@contio.eu</a>.
-                Den Kindergarten erreichen Sie unter <a href="tel:004965132410">+49&nbsp;651&nbsp;32410</a>.
+                Senden Sie uns eine E-Mail an <a href="mailto:mail@to.info">mail@to.info</a>.
+                Sie erreichen uns unter <a href="tel:0049123456789">+49&nbsp;123&nbsp;456789</a>.
             </p>
         </div>
 
@@ -71,13 +71,6 @@
 <div class="footer" role="contentinfo">
     <div class="container-fluid">
         <div class="row contact">
-%{--            <div id="fcontact" role="navigation">--}%
-%{--                <h2>Anmerkungen, Fragen oder Bitten</h2>--}%
-%{--                <p>--}%
-%{--                    Senden Sie uns eine E-Mail an <a href="mailto:ea-st-michael@contio.eu">ea-st-michael@contio.eu</a>.--}%
-%{--                    Den Kindergarten erreichen Sie unter <a href="tel:004965132410">+49&nbsp;651&nbsp;32410</a>.--}%
-%{--                </p>--}%
-%{--            </div>--}%
             <g:pageProperty name="page.footer"/>
         </div>
     </div>

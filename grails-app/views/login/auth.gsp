@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Fotos St. Michael</title>
+    <title>Fotos</title>
 <style type="text/css" media="screen">
 
 	#login {
